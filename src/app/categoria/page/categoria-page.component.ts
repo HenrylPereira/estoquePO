@@ -3,13 +3,13 @@ import { PoBreadcrumb, PoPageAction } from '@po-ui/ng-components';
 
 @Component({
   selector: 'app-categoria-page',
-  templateUrl: './produto-page.component.html',
-  styleUrls: ['./produto-page.component.scss']
+  templateUrl: './categoria-page.component.html',
+  styleUrls: ['./categoria-page.component.scss']
 })
-export class ProdutoPageComponent implements OnInit {
+export class CategoriaPageComponent implements OnInit {
 
   public readonly breadcrumb: PoBreadcrumb = {
-    items: [{ label: 'Produtos' }]
+    items: [{ label: 'Categoria' }]
   };
 
   constructor() { }

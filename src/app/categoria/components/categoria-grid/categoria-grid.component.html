@@ -1,0 +1,30 @@
+<div class="po-row">
+  <po-button class="po-mt-1" p-label="Nova categoria" p-kind="primary"></po-button>
+  <po-input
+    class="po-md-2 po-mb-2 po-offset-xl-9"
+    p-icon="po-icon-search"
+    p-placeholder="Nome da categoria">
+  </po-input>
+</div>
+
+<div>
+  <po-table
+    #table
+    p-container="shadow"
+    class="po-mt-2"
+    [p-columns]="columns"
+    [p-items]="categorias"
+  >
+  <ng-template
+    p-table-row-template
+    let-rowItem
+    let-i="rowIndex"
+  >
+  <po-widget p-title="Adicionais">
+    <div class="po-row">
+    </div>
+    </po-widget>
+  </ng-template>
+  </po-table>
+</div>
+
