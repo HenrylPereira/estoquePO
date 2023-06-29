@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CategoriaGridComponent } from './categoria-grid.component';
-import { PoButtonModule, PoFieldModule, PoLoadingModule, PoPageModule, PoTableModule, PoWidgetModule } from '@po-ui/ng-components';
-
+import { PoButtonModule, PoFieldModule, PoLoadingModule, PoModalModule, PoPageModule, PoTableModule, PoWidgetModule } from '@po-ui/ng-components';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [CategoriaGridComponent],
@@ -13,7 +13,10 @@ import { PoButtonModule, PoFieldModule, PoLoadingModule, PoPageModule, PoTableMo
     PoPageModule,
     PoWidgetModule,
     PoButtonModule,
-    PoLoadingModule
+    PoLoadingModule,
+    PoModalModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [CategoriaGridComponent]
 })

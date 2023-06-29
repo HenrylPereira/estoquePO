@@ -5,6 +5,7 @@ import { CorsInterceptor } from '../../cors.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PoModule } from '@po-ui/ng-components';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,9 @@ import { PoModule } from '@po-ui/ng-components';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    PoModule
+    PoModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     {

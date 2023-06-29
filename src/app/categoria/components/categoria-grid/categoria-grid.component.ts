@@ -1,9 +1,10 @@
 import { CategoriaDeleteService } from './../../services/categoria-delete.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CategoriaGetAllService } from '../../services/categoria-get-all.service';
-import { PoTableAction, PoTableColumn } from '@po-ui/ng-components';
-import { ProdutoGetInterface } from 'src/app/produto/interfaces/produto-get-interface';
+import { PoModalAction, PoModalComponent, PoTableAction, PoTableColumn } from '@po-ui/ng-components';
 import { CategoriaGetInterface } from '../../interfaces/categoria-get-interface';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { CategoriaCreateService } from '../../services/categoria-post-all.service';
 
 @Component({
   selector: 'app-categoria-grid',
@@ -11,11 +12,28 @@ import { CategoriaGetInterface } from '../../interfaces/categoria-get-interface'
   styleUrls: ['./categoria-grid.component.scss']
 })
 export class CategoriaGridComponent implements OnInit {
+  @ViewChild(PoModalComponent, { static: true }) poModal!: PoModalComponent;
   public categorias: any;
-  constructor(private categoriaGetAllService: CategoriaGetAllService, private categoriaDeleteService: CategoriaDeleteService) { }
+  public form!: FormGroup;
+  public editMode = false;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private categoriaGetAllService: CategoriaGetAllService,
+    private categoriaDeleteService: CategoriaDeleteService,
+    private categoriaCreateService: CategoriaCreateService
+    ) { }
 
   ngOnInit(): void {
+    this.createForm();
     this.popularTable();
+  }
+
+  public createForm() {
+    this.form = this.formBuilder.group({
+      titulo: new FormControl('', [Validators.required]),
+      descricao: new FormControl('', []),
+    })
   }
 
 
@@ -23,6 +41,7 @@ export class CategoriaGridComponent implements OnInit {
     { icon: 'po-icon po-icon-edit', label: 'Alterar' },
     { icon: 'po-icon po-icon-delete', label: 'Deletar', action: this.deletar.bind(this) }
   ];
+
 
   private popularTable(){
     this.categoriaGetAllService.get().subscribe((cate)=>{
@@ -39,5 +58,34 @@ export class CategoriaGridComponent implements OnInit {
     { property: 'titulo', label: 'Nome' },
     { property: 'descricao', label: 'Descricao'}
   ]
+
+  confirm: PoModalAction = {
+    action: () => {
+      this.salvar();
+    },
+    label: 'Confirmar'
+  };
+
+  public salvar(){
+    if(this.form.valid){
+      this.categoriaCreateService.create(this.form.value).subscribe();
+      this.poModal.close();
+      this.popularTable();
+      this.form.reset();
+    }
+
+  }
+
+  close: PoModalAction = {
+    action: () => {
+      this.closeModal();
+    },
+    label: 'Close',
+    danger: true
+  };
+
+  closeModal() {
+    this.poModal.close();
+  }
 
 }
