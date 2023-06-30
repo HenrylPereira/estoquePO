@@ -87,12 +87,13 @@ export class ProdutoGridComponent implements OnInit {
     label: 'Confirmar'
   };
 
-  public salvar(){
-    if(this.form.valid){
-      this.produtoCreateService.create(this.form.value).subscribe();
-      this.popularTable();
-      this.poModal.close();
-      this.form.reset();
+  public salvar() {
+    if (this.form.valid) {
+      this.produtoCreateService.create(this.form.value).subscribe(() => {
+        this.popularTable();
+        this.poModal.close();
+        this.form.reset();
+      });
     }
   }
 

@@ -43,14 +43,15 @@ export class CategoriaGridComponent implements OnInit {
   ];
 
 
-  private popularTable(){
-    this.categoriaGetAllService.get().subscribe((cate)=>{
-      this.categorias = cate;
+  private popularTable() {
+    this.categoriaGetAllService.get().subscribe((categorias) => {
+      this.categorias = categorias;
     });
   }
 
   private deletar(item: CategoriaGetInterface){
     this.categoriaDeleteService.delete(item.id).subscribe();
+    this.atualizar();
   }
 
   columns: Array<PoTableColumn> = [
@@ -59,6 +60,10 @@ export class CategoriaGridComponent implements OnInit {
     { property: 'descricao', label: 'Descricao'}
   ]
 
+  public async atualizar(){
+    this.popularTable();
+  }
+
   confirm: PoModalAction = {
     action: () => {
       this.salvar();
@@ -66,14 +71,14 @@ export class CategoriaGridComponent implements OnInit {
     label: 'Confirmar'
   };
 
-  public salvar(){
-    if(this.form.valid){
-      this.categoriaCreateService.create(this.form.value).subscribe();
-      this.poModal.close();
-      this.popularTable();
-      this.form.reset();
+  public salvar() {
+    if (this.form.valid) {
+      this.categoriaCreateService.create(this.form.value).subscribe(() => {
+        this.poModal.close();
+        this.atualizar();
+        this.form.reset();
+      });
     }
-
   }
 
   close: PoModalAction = {
