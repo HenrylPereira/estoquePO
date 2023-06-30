@@ -17,7 +17,7 @@ export class CategoriaCreateService {
 
   constructor(private http: HttpClient) { }
 
-  public create(categoria: CategoriaPostInterface): Observable<CategoriaPostInterface>{
+  public post(categoria: CategoriaPostInterface): Observable<CategoriaPostInterface>{
     return this.http.post<CategoriaPostInterface>(`http://localhost:8080/categoria`, categoria, this.httpOptions);
   }
 }

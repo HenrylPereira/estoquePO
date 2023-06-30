@@ -5,6 +5,7 @@ import { PoModalAction, PoModalComponent, PoTableAction, PoTableColumn } from '@
 import { CategoriaGetInterface } from '../../interfaces/categoria-get-interface';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CategoriaCreateService } from '../../services/categoria-post-all.service';
+import { CategoriaUpdateService } from '../../services/categoria-update.service';
 
 @Component({
   selector: 'app-categoria-grid',
@@ -16,12 +17,14 @@ export class CategoriaGridComponent implements OnInit {
   public categorias: any;
   public form!: FormGroup;
   public editMode = false;
+  public idCategoria!: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private categoriaGetAllService: CategoriaGetAllService,
     private categoriaDeleteService: CategoriaDeleteService,
-    private categoriaCreateService: CategoriaCreateService
+    private categoriaCreateService: CategoriaCreateService,
+    private categoriaUpdateService: CategoriaUpdateService
     ) { }
 
   ngOnInit(): void {
@@ -38,9 +41,17 @@ export class CategoriaGridComponent implements OnInit {
 
 
   public actions: Array<PoTableAction> = [
-    { icon: 'po-icon po-icon-edit', label: 'Alterar' },
+    { icon: 'po-icon po-icon-edit', label: 'Alterar', action: this.editar.bind(this) },
     { icon: 'po-icon po-icon-delete', label: 'Deletar', action: this.deletar.bind(this) }
   ];
+
+  private editar(event: any){
+    this.editMode = true;
+    this.idCategoria = event.id;
+    this.form.get('titulo')?.setValue(event?.titulo);
+    this.form.get('descricao')?.setValue(event?.descricao);
+    this.poModal.open();
+  }
 
 
   private popularTable() {
@@ -50,8 +61,9 @@ export class CategoriaGridComponent implements OnInit {
   }
 
   private deletar(item: CategoriaGetInterface){
-    this.categoriaDeleteService.delete(item.id).subscribe();
-    this.atualizar();
+    this.categoriaDeleteService.delete(item.id).subscribe(()=>{
+      this.atualizar();
+    });
   }
 
   columns: Array<PoTableColumn> = [
@@ -72,12 +84,22 @@ export class CategoriaGridComponent implements OnInit {
   };
 
   public salvar() {
-    if (this.form.valid) {
-      this.categoriaCreateService.create(this.form.value).subscribe(() => {
-        this.poModal.close();
-        this.atualizar();
-        this.form.reset();
-      });
+    if(this.editMode){
+      if (this.form.valid) {
+        this.categoriaUpdateService.post(this.form.value, this.idCategoria).subscribe(() => {
+          this.poModal.close();
+          this.atualizar();
+          this.form.reset();
+        });
+      }
+    }else{
+      if (this.form.valid) {
+        this.categoriaCreateService.post(this.form.value).subscribe(() => {
+          this.poModal.close();
+          this.atualizar();
+          this.form.reset();
+        });
+      }
     }
   }
 

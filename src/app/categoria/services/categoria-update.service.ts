@@ -17,7 +17,7 @@ export class CategoriaUpdateService {
 
   constructor(private http: HttpClient) { }
 
-  public update(produto: CategoriaPostInterface, id: string): Observable<CategoriaPostInterface>{
+  public post(produto: CategoriaPostInterface, id: string): Observable<CategoriaPostInterface>{
     return this.http.put<CategoriaPostInterface>(`http://localhost:8080/categoria/${id}`, produto, this.httpOptions);
   }
 }
