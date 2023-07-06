@@ -28,7 +28,7 @@
       <po-combo
         name="multiselect"
         formControlName="categoriaId"
-        p-label="Adicionais"
+        p-label="Categoria"
         [p-options]="categorias"
         class="po-md-12"
         [p-optional]="true">
@@ -48,14 +48,9 @@
         class="po-sm-6">
       </po-input>
     </po-modal>
-
-    <po-button class="po-mt-1" p-label="Novo Produto" p-kind="primary" (p-click)="modalProduto.open()"></po-button>
-    <po-input
-      class="po-md-2 po-mb-2 po-offset-xl-9"
-      p-icon="po-icon-search"
-      p-placeholder="Nome da categoria">
-    </po-input>
   </form>
+
+  <po-button class="po-mb-2" p-label="Novo Produto" p-kind="primary" (p-click)="modalProduto.open()"></po-button>
 </div>
 
 <div>
