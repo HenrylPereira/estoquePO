@@ -11,10 +11,10 @@ export class AppComponent {
 
   menus: Array<PoMenuItem> = [
     {
-      label: 'Início',
+      label: 'Dashboard',
       icon: 'po-icon-home',
-      shortLabel: 'Início',
-      link: ''
+      shortLabel: 'Dashboard',
+      link: '/'
     },
     {
       label: 'Produtos',
