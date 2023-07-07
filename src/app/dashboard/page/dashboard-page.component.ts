@@ -22,6 +22,7 @@ export class DashboardPageComponent implements OnInit {
   };
 
   public produtoData: PoChartSerie[] = [];
+  public categoriesColumn: string[] = [];
 
   constructor(
     private produtosGetAll: ProdutoGetAllService,
@@ -39,7 +40,15 @@ export class DashboardPageComponent implements OnInit {
         data: [produto.quantidade],
         type: PoChartType.Column
       }));
+  
+      this.categoriesColumn = [];
+      produtos.forEach((produto) => {
+        this.categoriesColumn.push(produto.quantidade.toString());
+      });
+  
       this.dec.detectChanges();
     });
   }
+  
+  
 }
