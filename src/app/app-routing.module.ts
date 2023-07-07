@@ -1,10 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProdutoPageComponent } from './produto/page/produto-page.component';
-import { ProdutoModule } from './produto/produto.module';
 import { CategoriaPageComponent } from './categoria/page/categoria-page.component';
+import { DashboardPageComponent } from './dashboard/page/dashboard-page.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: DashboardPageComponent,
+    loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule)
+  },
   {
     path: 'produtos',
     component: ProdutoPageComponent,
