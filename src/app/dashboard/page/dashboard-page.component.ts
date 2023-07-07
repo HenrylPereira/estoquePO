@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { PoBreadcrumb, PoChartOptions, PoChartSerie, PoChartType } from '@po-ui/ng-components';
+import { ProdutoGetInterface } from 'src/app/produto/interfaces/produto-get-interface';
+import { ProdutoGetAllService } from 'src/app/produto/services/produto-get-all.service';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -7,35 +9,37 @@ import { PoBreadcrumb, PoChartOptions, PoChartSerie, PoChartType } from '@po-ui/
   styleUrls: ['./dashboard-page.component.scss']
 })
 export class DashboardPageComponent implements OnInit {
-
   public readonly breadcrumb: PoBreadcrumb = {
     items: [{ label: 'Dashboard' }]
   };
 
-  public chartAreaCategories: Array<string> = ['Jan-18', 'Jul-18', 'Jan-19', 'Jul-19', 'Jan-20', 'Jul-20', 'Jan-21'];
-  
-  public chartAreaOptions: PoChartOptions = {
+  public optionsColumn: PoChartOptions = {
     axis: {
-      maxRange: 700,
-      gridLines: 8
+      minRange: -20,
+      maxRange: 100,
+      gridLines: 7
     }
   };
 
-  public chartAreaSeries: Array<PoChartSerie> = [
-    { label: 'Starbucks', data: [550, 497, 532, 550, 530, 565, 572], type: PoChartType.Area },
-    { label: 'Green Mntn Coffee Roaster', data: [420, 511, 493, 525, 522, 510, 567], type: PoChartType.Area },
-    { label: 'Dunkin Brands Group', data: [312, 542, 497, 610, 542, 661, 674], type: PoChartType.Area },
-    {
-      label: 'Coffee Arabica Price',
-      data: [550, 612, 525, 373, 342, 297, 282],
-      type: PoChartType.Line,
-      color: 'po-color-07'
-    }
-  ];
+  public produtoData: PoChartSerie[] = [];
 
-  constructor() { }
+  constructor(
+    private produtosGetAll: ProdutoGetAllService,
+    private dec: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
+    this.populaTable();
   }
 
+  public populaTable(): void {
+    this.produtosGetAll.get().subscribe((produtos: ProdutoGetInterface[]) => {
+      this.produtoData = produtos.map((produto) => ({
+        label: produto.titulo,
+        data: [produto.quantidade],
+        type: PoChartType.Column
+      }));
+      this.dec.detectChanges();
+    });
+  }
 }
