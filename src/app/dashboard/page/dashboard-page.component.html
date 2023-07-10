@@ -2,34 +2,32 @@
     <po-widget
         class="po-lg-3 po-mt-2"
         [p-height]="200"
-        p-title="Total checking account"
+        p-title="Total de Produtos"
     >
-    <div class="po-font-subtitle po-text-center">$2.818,29</div>
-    <div class="po-text-center">Last updated at 08:20</div>
+    <div class="po-font-title po-text-center">{{totalProdutos}}</div>
   </po-widget>
     <po-widget
         class="po-lg-3 po-mt-2"
         [p-height]="200"
-        p-title="Total checking account"
+        p-title="Total de categorias"
     >
-    <div class="po-font-subtitle po-text-center">$2.818,29</div>
-    <div class="po-text-center">Last updated at 08:20</div>
+    <div class="po-font-title po-text-center">{{totalQuantidades}}</div>
   </po-widget>
     <po-widget
     class="po-lg-3 po-mt-2"
     [p-height]="200"
-    p-title="Total checking account"
+    p-title="Maior quantidade em estoque"
     >
-    <div class="po-font-subtitle po-text-center">$2.818,29</div>
-    <div class="po-text-center">Last updated at 08:20</div>
+    <div class="po-font-subtitle po-text-center">{{maiorQuantidade}}</div>
+    <div class="po-text-center">{{quantMaior}}</div>
   </po-widget>
     <po-widget
         class="po-lg-3 po-mt-2"
         [p-height]="200"
-        p-title="Total checking account"
+        p-title="Menor quantidade em estoque"
     >
-    <div class="po-font-subtitle po-text-center">$2.818,29</div>
-    <div class="po-text-center">Last updated at 08:20</div>
+    <div class="po-font-subtitle po-text-center">{{menorQuantidade}}</div>
+    <div class="po-text-center">{{quantMenor}}</div>
   </po-widget>
 
 <div class="po-row">
@@ -45,6 +43,7 @@
       p-title="Distribuição de categorias"
       class="po-md-5 po-mt-2"
       [p-series]="categoriaData"
+      [p-type]="coffeConsumingChartType"
     >
     </po-chart>
 </div>

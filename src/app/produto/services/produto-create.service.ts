@@ -8,16 +8,23 @@ import { ProdutoPostInterface } from '../interfaces/produto-post-interface';
 })
 export class ProdutoCreateService {
 
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
-
-
   constructor(private http: HttpClient) { }
 
-  public create(produto: ProdutoPostInterface): Observable<ProdutoPostInterface>{
-    return this.http.post<ProdutoPostInterface>(`http://localhost:8080/produto`, produto, this.httpOptions);
+  public create(produto: ProdutoPostInterface): Observable<ProdutoPostInterface> {
+    const token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      })
+    };
+
+    return this.http.post<ProdutoPostInterface>(`http://localhost:8080/produto`, produto, httpOptions)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          // Handle error here if needed
+          return throwError(error);
+        })
+      );
   }
 }

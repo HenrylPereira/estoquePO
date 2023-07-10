@@ -82,6 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
+            "proxyConfig": "proxy.conf.json",
             "browserTarget": "estoquePO:build"
           }
         },
@@ -98,6 +99,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@po-ui/style/css/po-theme-default.min.css",
               "node_modules/@po-ui/style/css/po-theme-default.min.css",
               "node_modules/neoview-po-theme/css/po-theme-custom.min.css",
               "src/styles.scss"

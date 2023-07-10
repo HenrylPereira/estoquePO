@@ -7,17 +7,23 @@ import { CategoriaPostInterface } from '../interfaces/categoria-post-interface';
   providedIn: 'root'
 })
 export class CategoriaCreateService {
-
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
-
-
   constructor(private http: HttpClient) { }
 
-  public post(categoria: CategoriaPostInterface): Observable<CategoriaPostInterface>{
-    return this.http.post<CategoriaPostInterface>(`http://localhost:8080/categoria`, categoria, this.httpOptions);
+  public post(categoria: CategoriaPostInterface): Observable<CategoriaPostInterface> {
+    const token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      })
+    };
+
+    return this.http.post<CategoriaPostInterface>(`http://localhost:8080/categoria`, categoria, httpOptions)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          // Handle error here if needed
+          return throwError(error);
+        })
+      );
   }
 }

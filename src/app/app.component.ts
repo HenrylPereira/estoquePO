@@ -9,24 +9,5 @@ import { PoMenuItem } from '@po-ui/ng-components';
 export class AppComponent {
   title = 'estoquePO';
 
-  menus: Array<PoMenuItem> = [
-    {
-      label: 'Dashboard',
-      icon: 'po-icon-home',
-      shortLabel: 'Dashboard',
-      link: '/'
-    },
-    {
-      label: 'Produtos',
-      icon: 'po-icon-document-filled',
-      shortLabel: 'Produtos',
-      link: 'produtos'
-    },
-    {
-      label: 'Categorias',
-      icon: 'po-icon-list',
-      shortLabel: 'Categorias',
-      link: 'categorias'
-    },
-  ];
+
 }

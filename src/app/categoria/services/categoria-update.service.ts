@@ -8,16 +8,17 @@ import { CategoriaPostInterface } from '../interfaces/categoria-post-interface';
 })
 export class CategoriaUpdateService {
 
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
-
-
   constructor(private http: HttpClient) { }
 
-  public post(produto: CategoriaPostInterface, id: string): Observable<CategoriaPostInterface>{
-    return this.http.put<CategoriaPostInterface>(`http://localhost:8080/categoria/${id}`, produto, this.httpOptions);
+  public post(produto: CategoriaPostInterface, id: string): Observable<CategoriaPostInterface> {
+    const token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      })
+    };
+
+    return this.http.put<CategoriaPostInterface>(`http://localhost:8080/categoria/${id}`, produto, httpOptions);
   }
 }

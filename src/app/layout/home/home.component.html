@@ -1,0 +1,16 @@
+<div class="po-wrapper">
+  <po-menu
+    [p-collapsed]="true"
+    [p-filter]="false"
+    [p-menus]="menus"
+    p-short-logo="https://imgur.com/SBegGRf.png"
+    p-logo="https://imgur.com/jB7XLNM.png">
+  </po-menu>
+  <po-toolbar
+    p-title="Estoque"
+    [p-show-notification]="false"
+    [p-profile]="profile"
+    [p-profile-actions]="profileActions"
+  ></po-toolbar>
+  <router-outlet></router-outlet>
+</div>

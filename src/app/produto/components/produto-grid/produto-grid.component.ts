@@ -102,7 +102,6 @@ export class ProdutoGridComponent implements OnInit {
   }
 
   private preencherForm(event: ProdutoGetInterface){
-    this.form.get('dataEntrada')?.disable();
     this.form.get('dataEntrada')?.setValue(event.dataEntrada);
     this.form.get('categoriaId')?.setValue(event.categoria.id);
     this.form.get('titulo')?.setValue(event.titulo);
