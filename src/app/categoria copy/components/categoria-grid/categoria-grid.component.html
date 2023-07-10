@@ -1,0 +1,35 @@
+<div class="po-row">
+  <po-modal #modalCategoria p-title="Adicionar Categoria" [p-primary-action]="confirm" [p-secondary-action]="close">
+
+    <form [formGroup]="form">
+      <po-input
+        formControlName="titulo"
+        p-label="Titulo"
+        class="po-sm-12">
+      </po-input>
+
+      <po-textarea
+        formControlName="descricao"
+        name="textarea"
+        class="po-sm-12"
+        p-label="Descrição">
+      </po-textarea>
+    </form>
+
+
+  </po-modal>
+  <po-button class="po-mb-2" p-label="Nova categoria" p-kind="primary" (p-click)="modalCategoria.open()"></po-button>
+</div>
+
+<div>
+  <po-table
+    #table
+    p-container="shadow"
+    class="po-mt-2"
+    [p-columns]="columns"
+    [p-items]="categorias"
+    [p-actions]="actions"
+  >
+  </po-table>
+</div>
+

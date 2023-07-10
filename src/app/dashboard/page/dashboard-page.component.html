@@ -34,11 +34,17 @@
 
 <div class="po-row">
     <po-chart
-      class="po-md-6 po-mt-2"
+      class="po-md-7 po-mt-2"
       p-title="Quantiade de produtos em estoque"
       [p-options]="optionsColumn"
       [p-series]="produtoData"
       [p-categories]="categoriesColumn"
+    >
+    </po-chart>
+    <po-chart
+      p-title="Distribuição de categorias"
+      class="po-md-5 po-mt-2"
+      [p-series]="categoriaData"
     >
     </po-chart>
 </div>
